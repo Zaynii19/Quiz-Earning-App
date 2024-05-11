@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragments_background"
+    tools:context=".QuizActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/profile"
+            android:src="@drawable/avatar" />
+
+        <TextView
+            android:id="@+id/uName"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/textview"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/coin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/coinpic"
+            android:src="@drawable/coin" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/textview"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/categoryImg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/science" />
+
+    <TextView
+        android:id="@+id/quesCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/amaranth"
+        android:text="@string/question"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/categoryImg"
+        app:layout_constraintStart_toStartOf="@+id/categoryImg"
+        app:layout_constraintTop_toBottomOf="@+id/categoryImg" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/textview"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/quesCount"
+        app:layout_constraintStart_toStartOf="@+id/quesCount"
+        app:layout_constraintTop_toBottomOf="@+id/quesCount" />
+
+    <Button
+        android:id="@+id/opt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/button"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/opt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question"
+        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/opt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        app:layout_constraintBottom_toTopOf="@+id/opt3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt1"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"/>
+
+    <Button
+        android:id="@+id/opt3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        app:layout_constraintBottom_toTopOf="@+id/opt4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt2"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"/>
+
+    <Button
+        android:id="@+id/opt4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt3"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

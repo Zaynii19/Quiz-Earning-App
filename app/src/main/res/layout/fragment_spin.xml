@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragments_background"
+    tools:context=".fragments.SpinFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/chance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="@string/left_chance_1"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/profile"
+            android:src="@drawable/avatar" />
+
+        <TextView
+            android:id="@+id/uName"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/textview"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/coin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/coinpic"
+            android:src="@drawable/coin" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/textview"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/spin"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="@color/white"
+        android:text="Spin"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/wheelBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/wheel_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chance" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/wheel"
+        app:layout_constraintBottom_toBottomOf="@+id/wheelBackground"
+        app:layout_constraintEnd_toEndOf="@+id/wheelBackground"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/wheelBackground"
+        app:layout_constraintTop_toTopOf="@+id/wheelBackground"
+        app:layout_constraintVertical_bias="0.261" />
+
+    <ImageView
+        android:id="@+id/wheel_stoper"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/wheel_stoper"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
