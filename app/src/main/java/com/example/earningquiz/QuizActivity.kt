@@ -1,6 +1,9 @@
 package com.example.earningquiz
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,7 +27,10 @@ class QuizActivity : AppCompatActivity() {
 
     //List of Questions
     private lateinit var questionList: ArrayList<QuizModel>
+    var currentQuestion = 0
+    var score = 0
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,18 +63,29 @@ class QuizActivity : AppCompatActivity() {
                     }
 
                     if (questionList.isNotEmpty()) {
-                        binding.question.text = questionList[0].question
-                        binding.opt1.text = questionList[0].opt1
-                        binding.opt2.text = questionList[0].opt2
-                        binding.opt3.text = questionList[0].opt3
-                        binding.opt4.text = questionList[0].opt4
+                        binding.quesCount.text = "Question $currentQuestion"
+
+                        binding.question.text = questionList[currentQuestion].question
+                        binding.opt1.text = questionList[currentQuestion].opt1
+                        binding.opt2.text = questionList[currentQuestion].opt2
+                        binding.opt3.text = questionList[currentQuestion].opt3
+                        binding.opt4.text = questionList[currentQuestion].opt4
                     }
                 }
         }
 
-
-
-
+        binding.opt1.setOnClickListener {
+            nextQuesAndScoreUpdate(binding.opt1.text.toString())
+        }
+        binding.opt2.setOnClickListener {
+            nextQuesAndScoreUpdate(binding.opt2.text.toString())
+        }
+        binding.opt3.setOnClickListener {
+            nextQuesAndScoreUpdate(binding.opt3.text.toString())
+        }
+        binding.opt4.setOnClickListener {
+            nextQuesAndScoreUpdate(binding.opt4.text.toString())
+        }
 
         //Adding bottom Dialog
         binding.coin.setOnClickListener {
@@ -95,4 +112,34 @@ class QuizActivity : AppCompatActivity() {
                 })
 
     }
+    //Update the questions and score of user
+    @SuppressLint("SetTextI18n")
+    private fun nextQuesAndScoreUpdate(optChosen:String) {
+        // Correct answer gets 10 points
+        if (optChosen == questionList[currentQuestion].ans) {
+            score += 10
+            Toast.makeText(this, score.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        currentQuestion++
+
+        if (currentQuestion >= questionList.size) {
+            if (score >= 60) {
+                binding.win.visibility = View.VISIBLE
+                binding.winScore.text = score.toString()
+            } else {
+                binding.lose.visibility = View.VISIBLE
+                binding.loseScore.text = score.toString()
+            }
+        } else {
+            // Display next question
+            binding.quesCount.text = "Question $currentQuestion"
+            binding.question.text = questionList[currentQuestion].question
+            binding.opt1.text = questionList[currentQuestion].opt1
+            binding.opt2.text = questionList[currentQuestion].opt2
+            binding.opt3.text = questionList[currentQuestion].opt3
+            binding.opt4.text = questionList[currentQuestion].opt4
+        }
+    }
+
 }

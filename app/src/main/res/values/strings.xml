@@ -31,4 +31,6 @@
     <string name="question">Question</string>
     <string name="button">Button</string>
     <string name="next_question">Next Question</string>
+    <string name="congratulations_you_won_the_chance_to_spin">Congratulations! You won the chance to Spin</string>
+    <string name="sorry_you_have_lost">Sorry! You have Lost</string>
 </resources>
