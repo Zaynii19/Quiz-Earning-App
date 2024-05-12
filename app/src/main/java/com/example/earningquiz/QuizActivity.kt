@@ -38,6 +38,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var questionList: ArrayList<QuizModel>
     var currentQuestion = 0
     var score = 0
+    var currentChance = 0L
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,17 +111,32 @@ class QuizActivity : AppCompatActivity() {
 
         //Adding Name, coins
         Firebase.database.reference.child("Users").child(Firebase.auth.currentUser!!.uid)
-            .addValueEventListener(
-                object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val user = snapshot.getValue<UserModel>()
                         binding.uName.text = user?.uName
                     }
                     override fun onCancelled(error: DatabaseError) {
                     }
-                })
+
+            })
+
+        //Get already existing spin Chance Value from database
+        Firebase.database.reference.child("SpinChance")
+            .child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot : DataSnapshot) {
+                    if (snapshot.exists()){
+                        currentChance = snapshot.value as Long
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+            })
 
     }
+
     //Update the questions and score of user
     @SuppressLint("SetTextI18n")
     private fun nextQuesAndScoreUpdate(optChosen:String) {
@@ -134,9 +150,15 @@ class QuizActivity : AppCompatActivity() {
 
         if (currentQuestion >= questionList.size) {
             if (score >= 60) {
+                //Update User chances for spin to database
+                Firebase.database.reference.child("SpinChance")
+                    .child(Firebase.auth.currentUser!!.uid)
+                    .setValue(currentChance + 1)
+
                 val intent = Intent(this, WinActivity::class.java)
                 intent.putExtra("WinnerScore", score)
                 startActivity(intent)
+
             } else {
                 val intent = Intent(this, LoseActivity::class.java)
                 intent.putExtra("loserScore", score)
