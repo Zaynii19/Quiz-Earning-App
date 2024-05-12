@@ -26,14 +26,6 @@ class QuizActivity : AppCompatActivity() {
     private val binding: ActivityQuizBinding by lazy {
         ActivityQuizBinding.inflate(layoutInflater)
     }
-    private val binding2:ActivityWinBinding by lazy {
-        ActivityWinBinding.inflate(layoutInflater)
-    }
-    private val binding3:ActivityLoseBinding by lazy {
-        ActivityLoseBinding.inflate(layoutInflater)
-    }
-
-
     //List of Questions
     private lateinit var questionList: ArrayList<QuizModel>
     var currentQuestion = 0
@@ -135,6 +127,23 @@ class QuizActivity : AppCompatActivity() {
 
             })
 
+        //Retrieve user Coins from database
+        Firebase.database.reference.child("UserCoins").child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            val currentCoins = snapshot.value as Long
+                            binding.score.text = currentCoins.toString()
+                        }else{
+                            binding.score.text = "0"
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                }
+            )
+
     }
 
     //Update the questions and score of user
@@ -143,7 +152,6 @@ class QuizActivity : AppCompatActivity() {
         // Correct answer gets 10 points
         if (optChosen == questionList[currentQuestion].ans) {
             score += 10
-            Toast.makeText(this, score.toString(), Toast.LENGTH_SHORT).show()
         }
 
         currentQuestion++

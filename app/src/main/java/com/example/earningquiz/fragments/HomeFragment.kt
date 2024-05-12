@@ -64,6 +64,23 @@ class HomeFragment : Fragment() {
                 }
             )
 
+        //Retrieve user Coins from database
+        Firebase.database.reference.child("UserCoins").child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            val currentCoins = snapshot.value as Long
+                            binding.score.text = currentCoins.toString()
+                        }else{
+                            binding.score.text = "0"
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                }
+            )
+
         return binding.root
     }
 

@@ -29,6 +29,7 @@ class SpinFragment : Fragment() {
     private lateinit var timer: CountDownTimer
     private val itemTitles = arrayListOf("100", "Try Again", "200", "Try Again", "500", "Try Again")
     var leftChance = 0L
+    var currentCoins = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class SpinFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding.coin.setOnClickListener {
             val bottomSheetDialog: BottomSheetDialogFragment = WithdrawalFragment()
             bottomSheetDialog.show(requireActivity().supportFragmentManager, "Test")
@@ -81,12 +83,40 @@ class SpinFragment : Fragment() {
                 }
             )
 
+        //Retrieve user Coins from database
+        Firebase.database.reference.child("UserCoins").child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            currentCoins = snapshot.value as Long
+                            binding.score.text = currentCoins.toString()
+                        }else{
+                            binding.score.text = "0"
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                }
+            )
+
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun showResult(itemTitle: String) {
-        Toast.makeText(requireContext(), itemTitle, Toast.LENGTH_LONG).show()
+    private fun showResult(itemTitle: String, spinValue:Int) {
+        //check spin value element is from 0 2 4 indexes
+        if (spinValue%2==0){
+            val winCoins = itemTitle.toInt()
+            //Set updated value of Coins after spin
+            Firebase.database.reference.child("UserCoins")
+                .child(Firebase.auth.currentUser!!.uid)
+                .setValue(winCoins+currentCoins)
+            binding.score.text = (winCoins+currentCoins).toString()
+        }
+
+        Toast.makeText(requireContext(), itemTitle, Toast.LENGTH_SHORT).show()
+
         //Set updated value of spinner chance after spin
         Firebase.database.reference.child("SpinChance")
             .child(Firebase.auth.currentUser!!.uid)
@@ -101,17 +131,17 @@ class SpinFragment : Fragment() {
             if (leftChance>0){
                 binding.spin.isEnabled = false //Disable the button while the wheel is spinning
 
-                val spin = Random.nextInt(6) //Generate a random value between 0 to 6
-                val degrees = 60f * spin //Calculate the rotation degree based on the random value
+                val spinValue = Random.nextInt(6) //Generate a random value between 0 to 6
+                val degrees = 60f * spinValue //Calculate the rotation degree based on the random value
 
                 timer = object : CountDownTimer(10000, 50) {
                     var rotation = 0f
                     override fun onTick(millisUntilFinished: Long) {
-                        rotation += 5f //Rotate the wheel
+                        rotation += 10f //Rotate the wheel
                         if (rotation >= degrees) {
                             rotation = degrees
                             timer.cancel()
-                            showResult(itemTitles[spin])
+                            showResult(itemTitles[spinValue], spinValue)
                         }
 
                         binding.wheelStoper.rotation = rotation
@@ -121,7 +151,7 @@ class SpinFragment : Fragment() {
                     override fun onFinish() {}
                 }.start()
             }else{
-                binding.spin.isEnabled = false //Disable the button when chance < 0
+                Toast.makeText(requireContext(), "No Chances Left", Toast.LENGTH_SHORT).show()
             }
 
         }
