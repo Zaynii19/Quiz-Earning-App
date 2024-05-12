@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.earningquiz.UserModel
 import com.example.earningquiz.databinding.FragmentSpinBinding
+import com.example.earningquiz.history_rcv.RvHistoryModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
+import java.util.Date
 import kotlin.random.Random
 
 
@@ -112,7 +114,16 @@ class SpinFragment : Fragment() {
             Firebase.database.reference.child("UserCoins")
                 .child(Firebase.auth.currentUser!!.uid)
                 .setValue(winCoins+currentCoins)
-            binding.score.text = (winCoins+currentCoins).toString()
+
+            //Set updated value of Coins History
+            val currentDate = Date()
+            //val historyModel = RvHistoryModel(currentDate.toString(), winCoins.toString(), false)
+            val historyModel = RvHistoryModel(System.currentTimeMillis().toString(), winCoins.toString(), false)
+            Firebase.database.reference.child("CoinsHistory")
+                .child(Firebase.auth.currentUser!!.uid)
+                .push()   //push creates new node each time not update/rewrite previous
+                .setValue(historyModel)
+
         }
 
         Toast.makeText(requireContext(), itemTitle, Toast.LENGTH_SHORT).show()

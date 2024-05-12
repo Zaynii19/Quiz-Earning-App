@@ -1,5 +1,6 @@
 package com.example.earningquiz.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,10 +28,31 @@ class HistoryFragment : Fragment() {
     }
 
     private var listHistory = ArrayList<RvHistoryModel>()
+    lateinit var adapter: HistoryRvAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Retrieve history data from database
+        Firebase.database.reference.child("CoinsHistory")
+            .child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(object : ValueEventListener{
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listHistory.clear()
+                    if (snapshot.exists()){
+                        for (dataSnapshot in snapshot.children){
+                            val coinHistoryData = snapshot.getValue<RvHistoryModel>()
+                            listHistory.add(coinHistoryData!!)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
 
     }
 
@@ -85,12 +107,9 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listHistory.add(RvHistoryModel("12:30", "+300"))
-        listHistory.add(RvHistoryModel("01:40", "+700"))
-        listHistory.add(RvHistoryModel("02:12", "+500"))
-        listHistory.add(RvHistoryModel("04:23", "+1000"))
+
         binding.rcv.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = HistoryRvAdapter(listHistory)
+        adapter = HistoryRvAdapter(listHistory)
         binding.rcv.adapter = adapter
         binding.rcv.setHasFixedSize(true)
     }
