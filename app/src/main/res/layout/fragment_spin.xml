@@ -76,7 +76,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="52dp"
         android:backgroundTint="@color/white"
-        android:text="Spin"
+        android:text="@string/spin"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:cornerRadius="10dp"

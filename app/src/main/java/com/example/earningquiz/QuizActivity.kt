@@ -1,14 +1,16 @@
 package com.example.earningquiz
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.earningquiz.databinding.ActivityLoseBinding
 import com.example.earningquiz.databinding.ActivityQuizBinding
+import com.example.earningquiz.databinding.ActivityWinBinding
 import com.example.earningquiz.fragments.WithdrawalFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Firebase
@@ -24,6 +26,13 @@ class QuizActivity : AppCompatActivity() {
     private val binding: ActivityQuizBinding by lazy {
         ActivityQuizBinding.inflate(layoutInflater)
     }
+    private val binding2:ActivityWinBinding by lazy {
+        ActivityWinBinding.inflate(layoutInflater)
+    }
+    private val binding3:ActivityLoseBinding by lazy {
+        ActivityLoseBinding.inflate(layoutInflater)
+    }
+
 
     //List of Questions
     private lateinit var questionList: ArrayList<QuizModel>
@@ -125,11 +134,13 @@ class QuizActivity : AppCompatActivity() {
 
         if (currentQuestion >= questionList.size) {
             if (score >= 60) {
-                binding.win.visibility = View.VISIBLE
-                binding.winScore.text = score.toString()
+                val intent = Intent(this, WinActivity::class.java)
+                intent.putExtra("WinnerScore", score)
+                startActivity(intent)
             } else {
-                binding.lose.visibility = View.VISIBLE
-                binding.loseScore.text = score.toString()
+                val intent = Intent(this, LoseActivity::class.java)
+                intent.putExtra("loserScore", score)
+                startActivity(intent)
             }
         } else {
             // Display next question
@@ -140,6 +151,8 @@ class QuizActivity : AppCompatActivity() {
             binding.opt3.text = questionList[currentQuestion].opt3
             binding.opt4.text = questionList[currentQuestion].opt4
         }
-    }
 
+
+
+    }
 }
