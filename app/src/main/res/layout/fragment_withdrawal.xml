@@ -20,18 +20,18 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/totalcoins"
+            app:layout_constraintBottom_toTopOf="@+id/totalCoins"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/totalcoins"
+            android:id="@+id/totalCoins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Total Coins = 3000"
+            android:text="@string/total_coins_3000"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalcoins" />
+            app:layout_constraintTop_toBottomOf="@+id/totalCoins" />
 
         <TextView
             android:id="@+id/textView7"
@@ -97,7 +97,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
+            android:layout_marginBottom="80dp"
             android:hint="@string/enter_jazzcash_number"
             android:textColorHint="#958C8C"
             app:boxBackgroundColor="@color/white"
@@ -110,7 +110,7 @@
             app:cursorColor="#656262"
             app:hintTextColor="#958C8C"
             app:layout_constraintBottom_toTopOf="@+id/withdrawBtn"
-            tools:layout_editor_absoluteX="20dp">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number"

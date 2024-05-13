@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.earningquiz.databinding.HistoryItemsBinding
-import com.google.firebase.Timestamp
-import java.util.Date
 
 class HistoryRvAdapter(var listHistory:ArrayList<RvHistoryModel>):RecyclerView.Adapter<HistoryRvAdapter.HistoryViewHolder>() {
     class HistoryViewHolder(val binding: HistoryItemsBinding):RecyclerView.ViewHolder(binding.root)  {
@@ -21,14 +19,13 @@ class HistoryRvAdapter(var listHistory:ArrayList<RvHistoryModel>):RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.binding.hScore.text = listHistory[position].historyCoins
-        /*val timestamp = Timestamp(listHistory[position].timeDate.toLong())
-        holder.binding.timeDate.text = Date(timestamp.time).toString()*/
-        holder.binding.timeDate.text = listHistory[position].timeDate
-        if (listHistory[position].isWithdrawl){
-            holder.binding.earnedCointxt.text = "Withdrawl Coins"
-        }else{
-            holder.binding.earnedCointxt.text = "Earned Coins"
-        }
+        holder.binding.hScore.text = listHistory[position].historyCoins.toString()
+        holder.binding.timeDate.text = listHistory[position].timeDate.toString()
+        holder.binding.earnedCointxt.text =
+            if (listHistory[position].isWithdrawl) {
+                "Withdrawl Coins"
+            }else{
+                 "Earned Coins"
+            }
     }
 }

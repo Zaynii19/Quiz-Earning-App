@@ -124,7 +124,9 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="3"
-                        android:text="@string/textview" />
+                        android:text="@string/textview"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -163,7 +165,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="2"
-                        android:text="@string/textview" />
+                        android:text="@string/textview"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -202,7 +206,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="2"
-                        android:text="@string/textview" />
+                        android:text="@string/textview"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -241,7 +247,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="3"
-                        android:text="@string/textview" />
+                        android:text="@string/textview"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

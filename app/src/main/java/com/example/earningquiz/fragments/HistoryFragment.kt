@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earningquiz.UserModel
 import com.example.earningquiz.databinding.FragmentHistoryBinding
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
+import java.util.Collections
 
 class HistoryFragment : Fragment() {
 
@@ -30,9 +32,24 @@ class HistoryFragment : Fragment() {
     private var listHistory = ArrayList<RvHistoryModel>()
     lateinit var adapter: HistoryRvAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Retrieve user Coins from database
+        Firebase.database.reference.child("UserCoins").child(Firebase.auth.currentUser!!.uid)
+            .addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            val currentCoins = snapshot.value as Long
+                            binding.score.text = currentCoins.toString()
+                        }else{
+                            binding.score.text = "0"
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }                }
+            )
 
         //Retrieve history data from database
         Firebase.database.reference.child("CoinsHistory")
@@ -42,14 +59,17 @@ class HistoryFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listHistory.clear()
                     if (snapshot.exists()){
+                        val listHistory1 = ArrayList<RvHistoryModel>()
                         for (dataSnapshot in snapshot.children){
                             val coinHistoryData = snapshot.getValue<RvHistoryModel>()
-                            listHistory.add(coinHistoryData!!)
-                            adapter.notifyDataSetChanged()
+                            listHistory1.add(coinHistoryData!!)
                         }
+
+                        listHistory1.reverse()
+                        listHistory.addAll(listHistory1)
+                        adapter.notifyDataSetChanged()
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
@@ -84,23 +104,6 @@ class HistoryFragment : Fragment() {
                 }
             )
 
-        //Retrieve user Coins from database
-        Firebase.database.reference.child("UserCoins").child(Firebase.auth.currentUser!!.uid)
-            .addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()){
-                            val currentCoins = snapshot.value as Long
-                            binding.score.text = currentCoins.toString()
-                        }else{
-                            binding.score.text = "0"
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                }
-            )
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -112,6 +115,7 @@ class HistoryFragment : Fragment() {
         adapter = HistoryRvAdapter(listHistory)
         binding.rcv.adapter = adapter
         binding.rcv.setHasFixedSize(true)
+
     }
 
     companion object {

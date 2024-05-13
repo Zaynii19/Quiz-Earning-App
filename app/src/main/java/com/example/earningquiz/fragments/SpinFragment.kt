@@ -117,13 +117,11 @@ class SpinFragment : Fragment() {
 
             //Set updated value of Coins History
             val currentDate = Date()
-            //val historyModel = RvHistoryModel(currentDate.toString(), winCoins.toString(), false)
-            val historyModel = RvHistoryModel(System.currentTimeMillis().toString(), winCoins.toString(), false)
+            val historyModel = RvHistoryModel(currentDate, winCoins, false)
             Firebase.database.reference.child("CoinsHistory")
                 .child(Firebase.auth.currentUser!!.uid)
                 .push()   //push creates new node each time not update/rewrite previous
                 .setValue(historyModel)
-
         }
 
         Toast.makeText(requireContext(), itemTitle, Toast.LENGTH_SHORT).show()

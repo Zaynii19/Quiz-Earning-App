@@ -37,14 +37,14 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@string/earned_coins"
+                android:text="@string/textview"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/timeDate"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
@@ -56,11 +56,11 @@
         <TextView
             android:id="@+id/hScore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
             android:text="@string/_1000"
-            android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
