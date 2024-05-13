@@ -48,7 +48,8 @@ class HistoryFragment : Fragment() {
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
-                    }                }
+                    }
+                }
             )
 
         //Retrieve history data from database
@@ -60,7 +61,7 @@ class HistoryFragment : Fragment() {
                     if (snapshot.exists()){
                         val tempList = ArrayList<RvHistoryModel>()
                         for (dataSnapshot in snapshot.children){
-                            val coinHistoryData = snapshot.getValue<RvHistoryModel>()
+                            val coinHistoryData = dataSnapshot.getValue(RvHistoryModel::class.java)
                             tempList.add(coinHistoryData!!)
                         }
 
