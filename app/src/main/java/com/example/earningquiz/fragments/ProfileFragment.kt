@@ -1,10 +1,13 @@
 package com.example.earningquiz.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.earningquiz.HomeActivity
 import com.example.earningquiz.R
 import com.example.earningquiz.UserModel
 import com.example.earningquiz.databinding.FragmentProfileBinding
@@ -71,9 +74,11 @@ class ProfileFragment : Fragment() {
             )
 
         //Logout
-        /*binding.logout.setOnClickListener {
-            startActivity(Intent(this@ProfileFragment, HomeActivity::class.java))
-        }*/
+        binding.logout.setOnClickListener {
+            Firebase.auth.signOut()
+            Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireActivity(), HomeActivity::class.java))
+        }
 
         // Inflate the layout for this fragment
         return binding.root

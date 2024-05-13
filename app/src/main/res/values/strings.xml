@@ -35,4 +35,5 @@
     <string name="sorry_you_have_lost">Sorry! You have Lost</string>
     <string name="click_to_spin">Click to Spin</string>
     <string name="total_coins_3000">Total Coins = 3000</string>
+    <string name="login">Login</string>
 </resources>

@@ -53,20 +53,19 @@ class HistoryFragment : Fragment() {
 
         //Retrieve history data from database
         Firebase.database.reference.child("CoinsHistory")
-            .child(Firebase.auth.currentUser!!.uid)
+            .child(Firebase.auth.currentUser?.uid ?: "")
             .addValueEventListener(object : ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listHistory.clear()
                     if (snapshot.exists()){
-                        val listHistory1 = ArrayList<RvHistoryModel>()
+                        val tempList = ArrayList<RvHistoryModel>()
                         for (dataSnapshot in snapshot.children){
                             val coinHistoryData = snapshot.getValue<RvHistoryModel>()
-                            listHistory1.add(coinHistoryData!!)
+                            tempList.add(coinHistoryData!!)
                         }
 
-                        listHistory1.reverse()
-                        listHistory.addAll(listHistory1)
+                        tempList.reverse()
+                        listHistory.addAll(tempList)
                         adapter.notifyDataSetChanged()
                     }
                 }
@@ -91,7 +90,7 @@ class HistoryFragment : Fragment() {
             bottomSheetDialog.enterTransition
         }
 
-        Firebase.database.reference.child("Users").child(Firebase.auth.currentUser!!.uid)
+        Firebase.database.reference.child("Users").child(Firebase.auth.currentUser?.uid ?: "")
             .addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {

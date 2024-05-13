@@ -27,10 +27,14 @@ class SignupActivity : AppCompatActivity() {
             insets
         }
 
-        binding.signupBtn.setOnClickListener {
+        //click on login text if already signup
+        binding.loginText.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
 
+        binding.signupBtn.setOnClickListener {
             val name = binding.name.text.toString()
-            val age = binding.age.text.toString().toInt() //Type Casting to Int
+            val age = binding.age.text.toString()
             val email = binding.email.text.toString()
             val pass = binding.pass.text.toString()
 

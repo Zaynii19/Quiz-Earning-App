@@ -60,25 +60,6 @@ class WithdrawalFragment : BottomSheetDialogFragment() {
                 }
             )
 
-        //Retrieve history data from database
-        /*Firebase.database.reference.child("CoinsHistory")
-            .child(Firebase.auth.currentUser!!.uid)
-            .addValueEventListener(object : ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    listHistory.clear()
-                    if (snapshot.exists()){
-                        for (dataSnapshot in snapshot.children){
-                            val coinHistoryData = snapshot.getValue<RvHistoryModel>()
-                            listHistory.add(coinHistoryData!!)
-                            adapter.notifyDataSetChanged()
-                        }
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })*/
-
         binding.withdrawBtn.setOnClickListener {
             val withdrawlAmount = binding.amount.text.toString().toLong()
             withdrawlCoins = withdrawlAmount * 100

@@ -259,7 +259,7 @@
                 android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginBottom="32dp"
                 android:backgroundTint="@color/white"
                 android:text="@string/log_out"
